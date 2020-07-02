@@ -5,10 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
 const square = document.querySelectorAll('.square')
 const moleA = document.querySelectorAll('.moleA')
 const moleB = document.querySelectorAll('.moleB')
-const timeLeft = document.querySelectorAll('#time-left')
-let score = document.querySelectorAll('#score')
+const timeLeft = document.querySelector('#time-left')
+const startBttn = document.querySelector('#start-pause')
+const resetBttn = document.querySelector('#reset')
+let score = document.querySelector('#score')
 
 let result = 0;
+let currentTime = timeLeft.textContent;
 
 //random mole and square
 function randomSquare(){
@@ -34,22 +37,75 @@ function randomSquare(){
     let randomMole = (moles.sort(() => 0.5 - Math.random()))[0]
     randomPosition.classList.add(randomMole)
     hitPosition = randomPosition.id
+    hitMole = randomMole
 }
+
 //Adding click reaction to every square
 square.forEach(element => {
     element.addEventListener('mouseup', () => {
-        if (element.id == hitPosition){
+        if (element.id === hitPosition){
+            if (hitMole === 'moleA' || hitMole == 'moleB' || hitMole === 'moleE' || hitMole == 'moleF'){
+                result = result +4
+                score.textContent = result
+            }
             result = result +1
             score.textContent = result
         }
     })
 })
 
+let timerMove;
+let timerId;
+//move mole
 function moveMole(){
-    let timerId = null
-    timerId = setInterval(randomSquare, 1000)
+    timerMove = null
+    timerMove = setInterval(randomSquare, 1000)
 }
 
-moveMole()
+
+
+//timer
+function countDown(){
+    currentTime = currentTime - 1
+    timeLeft.textContent = currentTime
+    if (currentTime === 0){
+        clearInterval(timerId)
+        alert('Game Over, Final score is ' + result)
+    }
+}
+
+
+
+//start-pause
+function start(){
+    console.log('clicked button')
+    if (startBttn.textContent === 'Pause'){
+        console.log('Pause')
+        clearInterval(timerId)
+        clearInterval(timerMove)
+        startBttn.textContent = 'Start'
+    } else if (startBttn.textContent === 'Start'){
+        console.log('Start')
+        moveMole()
+        timerId = setInterval(countDown, 1000)
+        startBttn.textContent = 'Pause'
+    }
+
+}
+//reset
+function reset(){
+        clearInterval(timerId)
+        clearInterval(timerMove)
+        result = 0
+        score.textContent = result
+        currentTime = 60
+        timeLeft.textContent = currentTime
+        timerId = setInterval(countDown, 1000)
+        moveMole()
+    }
+
+
+startBttn.addEventListener('click', start)
+resetBttn.addEventListener('click', reset)
 
 })
