@@ -8,10 +8,14 @@ const moleB = document.querySelectorAll('.moleB')
 const timeLeft = document.querySelector('#time-left')
 const startBttn = document.querySelector('#start-pause')
 const resetBttn = document.querySelector('#reset')
+const instBtn = document.querySelector('#inst-Btn')
+const instruction = document.querySelector('#instructions')
+const top = document.querySelector('#top')
 let score = document.querySelector('#score')
-
+let topScore = 0
 let result = 0;
 let currentTime = timeLeft.textContent;
+let gameOver = false;
 
 //random mole and square
 function randomSquare(){
@@ -70,6 +74,13 @@ function countDown(){
     timeLeft.textContent = currentTime
     if (currentTime === 0){
         clearInterval(timerId)
+        clearInterval(timerMove)
+        startBttn.textContent = 'Start'
+        gameOver = true
+        if (topScore < result){
+            topScore = result
+            top.innerHTML = `${topScore} by Player1`
+        }
         alert('Game Over, Final score is ' + result)
     }
 }
@@ -89,6 +100,12 @@ function start(){
         moveMole()
         timerId = setInterval(countDown, 1000)
         startBttn.textContent = 'Pause'
+        if (gameOver === true){
+            result = 0
+            score.textContent = result
+            currentTime = 30
+            timeLeft.textContent = currentTime
+        }
     }
 
 }
@@ -98,14 +115,24 @@ function reset(){
         clearInterval(timerMove)
         result = 0
         score.textContent = result
-        currentTime = 60
+        currentTime = 30
         timeLeft.textContent = currentTime
         timerId = setInterval(countDown, 1000)
+        gameOver = false
         moveMole()
     }
 
 
 startBttn.addEventListener('click', start)
 resetBttn.addEventListener('click', reset)
+instBtn.addEventListener('click', () =>{
+    if (instBtn.innerHTML === 'Instructions'){
+     instBtn.innerHTML = 'Hide'
+     instruction.style.display = 'block'
+    } else if (instBtn.innerHTML === 'Hide'){
+     instBtn.innerHTML = 'Instructions'
+     instruction.style.display = 'none'  
+    }
+ })
 
 })

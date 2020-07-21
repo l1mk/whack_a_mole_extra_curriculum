@@ -7,11 +7,17 @@
     <title>Whack a Mole</title>
 </head>
 <body>
-    <button id="start-pause">Start</button>
-    <button id="reset">Reset</button>
-    <h3>Score: <span id="score">0</span></h3>
-    <h3>Timer: <span id="time-left">60</span></h3>
+    <div class="header">
+        <h1>Whack-a-Digger</h1>
+        <nav>Top Score: <span id="top">None</span></nav>
+    </div>
+    <h3>Score: </h3><span id="score">0</span>
+    <h3>Timer: </h3><span id="time-left">30</span>
+    <br>
+    <br>
+
     
+    <div class="border">
     <div class="grid">
         <div class="square" id="1"></div>
         <div class="square" id="2"></div>
@@ -56,6 +62,15 @@
         <div class="square" id="41"></div>
         <div class="square" id="42"></div>
     </div>
-
+</div>
+<br>
+<button id="start-pause">Start</button>
+<button id="reset">Reset</button>
+<button id="inst-Btn">Instructions</button>
+<div id="instructions">
+<p>
+Click on top the appearing pokemon, win a point for each pokemon hitted. Some pokemon have extra points. Hit the most you can before timer runs out.
+</p>
+</div>
 </body>
 </html>
