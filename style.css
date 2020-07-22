@@ -119,3 +119,8 @@ background-size: cover;
     background-image: url('images/TriB.png');
     background-size: cover;
 }
+
+.punch{
+    background-image: url('images/punch.png');
+    background-size: cover;
+}

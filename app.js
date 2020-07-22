@@ -34,7 +34,7 @@ function randomSquare(){
          element.classList.remove('moleL')
          element.classList.remove('moleM')
          element.classList.remove('moleN')
-
+         element.addEventListener('click', punch)
     })
     let randomPosition = square[Math.floor(Math.random() *42)]
     let moles = ['moleA', 'moleB', 'moleC', 'moleD', 'moleE', 'moleF', 'moleG', 'moleH', 'moleI', 'moleJ', 'moleK', 'moleL', 'moleM', 'moleN']
@@ -66,8 +66,6 @@ function moveMole(){
     timerMove = setInterval(randomSquare, 1000)
 }
 
-
-
 //timer
 function countDown(){
     currentTime = currentTime - 1
@@ -84,8 +82,11 @@ function countDown(){
         alert('Game Over, Final score is ' + result)
     }
 }
-
-
+//punch
+function punch(){
+    this.classList.add('punch')
+    setTimeout(() => this.classList.remove('punch'), 250)
+}
 
 //start-pause
 function start(){
@@ -109,6 +110,7 @@ function start(){
     }
 
 }
+
 //reset
 function reset(){
         clearInterval(timerId)
@@ -121,7 +123,6 @@ function reset(){
         gameOver = false
         moveMole()
     }
-
 
 startBttn.addEventListener('click', start)
 resetBttn.addEventListener('click', reset)
